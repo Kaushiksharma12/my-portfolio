@@ -758,6 +758,48 @@
       }
     }
     
+    /* Premium Projects Framer Motion Scroll Stacking Layout */
+    .projects-track {
+      height: 300vh;
+      position: relative;
+      width: 100%;
+    }
+    
+    .projects-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;
+    }
+    
+    .projects-sticky > .container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: auto;
+    }
+    
+    .projects-grid-stack {
+      position: relative;
+      width: 100%;
+      height: 650px; /* Safe height to enclose the card content */
+      display: block;
+      margin-top: 32px;
+    }
+    
+    .project-card-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      will-change: transform, opacity;
+    }
+
     .project-card {
       background-color: var(--bg-panel);
       border: 1px solid var(--line);
@@ -765,14 +807,17 @@
       padding: 32px;
       display: flex;
       flex-direction: column;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
+      /* Default SNAPPY transitions for hover state */
+      transition: border-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+                  box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+                  transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
     
     .project-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--navy);
-      box-shadow: 0 8px 24px rgba(22, 32, 42, 0.04);
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--teal);
+      box-shadow: 0 20px 40px rgba(46, 139, 120, 0.12), 0 0 16px rgba(46, 139, 120, 0.08);
     }
     
     .project-card:focus-within {
@@ -789,8 +834,9 @@
     }
     
     .project-card.featured:hover {
+      transform: translateY(-8px) scale(1.01);
       border-color: var(--amber);
-      box-shadow: 0 12px 32px rgba(16, 27, 46, 0.15);
+      box-shadow: 0 20px 40px rgba(232, 151, 58, 0.18), 0 0 16px rgba(232, 151, 58, 0.1);
     }
     
     .card-header {
@@ -1206,10 +1252,15 @@
     }
     
     @media (prefers-reduced-motion: reduce) {
-      .reveal {
+      .reveal, .project-card {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
+      }
+      
+      .project-card:hover, .project-card.featured:hover {
+        transform: none !important;
+        box-shadow: none !important;
       }
       
       html {
@@ -1329,14 +1380,7 @@
       transform: translateY(-1px);
     }
 
-    /* Project card lift & transition tweaks */
-    .project-card {
-      transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-    .project-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px -15px rgba(16, 27, 46, 0.08);
-    }
+    /* Project card lift & transition tweaks handled in main declarations */
 
     /* Responsive Nav Links for Mobile */
     @media (max-width: 768px) {
@@ -1603,7 +1647,7 @@
           </p>
           <div class="hero-actions" style="margin-bottom: 20px;">
             <a href="#projects" class="btn btn-primary" style="margin-right: 8px;">View Projects</a>
-            <a href="resume.pdf" class="btn btn-secondary" download>
+            <a href="/resume.pdf" class="btn btn-secondary" download="Kaushik_Sharma_Resume.pdf" aria-label="Download Kaushik Sharma's Resume">
               <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true" style="margin-right: 6px; vertical-align: middle;">
                 <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
               </svg>
@@ -1779,132 +1823,7 @@
          03 / PROJECTS SECTION
          ------------------------------------------------------------------------ -->
     <section id="projects">
-      <div class="container reveal">
-        
-        <div class="projects-header-row">
-          <div>
-            <span class="section-eyebrow">03 / projects</span>
-            <h2 class="section-heading">Systems & Scraping Engines</h2>
-          </div>
-          <div class="projects-legend" aria-label="Project type key">
-            <div class="legend-item">
-              <span class="legend-dot self" aria-hidden="true"></span>
-              <span>self project</span>
-            </div>
-            <div class="legend-item">
-              <span class="legend-dot internship" aria-hidden="true"></span>
-              <span>internship project</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="projects-grid">
-          
-          <!-- FEATURED PROJECT: Pocket ArcadeX -->
-          <div class="project-card featured">
-            <div class="card-header">
-              <div>
-                <span class="badge badge-self" style="margin-bottom: 8px; display: inline-block;">Featured Self Project</span>
-                <h3 class="project-title">Pocket ArcadeX</h3>
-              </div>
-            </div>
-            
-            <!-- Highlights Grid -->
-            <div class="project-highlights" style="display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0;">
-              <span class="highlight-badge">5 Multiplayer Games</span>
-              <span class="highlight-badge">Progressive Web App (PWA)</span>
-              <span class="highlight-badge">Cross Platform (Android, iOS & Web)</span>
-              <span class="highlight-badge">Offline Support</span>
-              <span class="highlight-badge">Online Multiplayer</span>
-              <span class="highlight-badge">React 19</span>
-              <span class="highlight-badge">Next.js 16</span>
-              <span class="highlight-badge">TypeScript</span>
-              <span class="highlight-badge">Capacitor</span>
-              <span class="highlight-badge">Responsive Design</span>
-            </div>
-
-            <p class="project-desc">
-              A premium, cross-platform multiplayer board gaming platform allowing users to play instantly from any device without installation. Designed with a mobile-first philosophy.
-            </p>
-
-            <ul class="project-features" style="margin-bottom: 28px;">
-              <li><strong>Architecture:</strong> Modular, decoupled application architecture leveraging Next.js App Router, optimized for multi-platform wrapping with Capacitor.</li>
-              <li><strong>Features:</strong> Integrated 5 popular board games (Ludo, Chess, Tic-Tac-Toe, Connect 4, Snakes & Ladders) with unified multiplayer state management.</li>
-              <li><strong>Game Modes:</strong> Supports single-player with adjustable difficulty AI bots, local pass-and-play, and real-time online multiplayer.</li>
-              <li><strong>Synchronization:</strong> Real-time room creation and gameplay sync using web sockets, with robust connection recovery after user disconnect/refresh.</li>
-              <li><strong>PWA Structure:</strong> Implemented service workers for offline asset caching, installation prompts, and seamless background updates.</li>
-              <li><strong>Performance:</strong> Eliminated JS heap memory leaks during game session destruction and optimized asset loading for instant starts.</li>
-            </ul>
-
-            <div class="project-actions" style="display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap;">
-              <a href="https://pocket-arcade-x.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background-color: var(--amber); border-color: var(--amber); color: #101B2E;">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2" style="margin-right: 6px; vertical-align: middle;"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                Live Demo
-              </a>
-              <a href="https://github.com/Kaushiksharma12" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.3); color: var(--bg);">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="margin-right: 6px; vertical-align: middle;"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub Repo
-              </a>
-            </div>
-
-            <div class="tech-chips">
-              <span class="tech-chip">Next.js</span>
-              <span class="tech-chip">React</span>
-              <span class="tech-chip">TypeScript</span>
-              <span class="tech-chip">Capacitor</span>
-              <span class="tech-chip">PWA</span>
-              <span class="tech-chip">Tailwind CSS</span>
-              <span class="tech-chip">Service Workers</span>
-              <span class="tech-chip">Vercel</span>
-              <span class="tech-chip">Git</span>
-            </div>
-          </div>
-          
-          <!-- STANDARD PROJECT 1: Lead Scraping Automation Tool -->
-          <div class="project-card">
-            <div class="card-header">
-              <h3 class="project-title">Lead Scraping Automation Tool</h3>
-              <span class="badge badge-internship">internship project</span>
-            </div>
-            <p class="project-desc">
-              An automated browser-based scraping pipeline engineered to collect, validate, and store structured lead records, removing repetitive manual operations.
-            </p>
-            <ul class="project-features" style="margin-bottom: 20px;">
-              <li><strong>Automation:</strong> Built an automated browser-based scraping pipeline to collect and store 1,000+ structured lead records, eliminating repetitive manual data entry and saving 10+ hours weekly.</li>
-              <li><strong>Data Storage:</strong> Designed robust validation and storage logic in MongoDB with pagination support across large result sets exceeding 500 entries per query.</li>
-              <li><strong>Technologies:</strong> Utilized Playwright and Puppeteer browser automation for lead scraping and session handling.</li>
-            </ul>
-            <div class="tech-chips">
-              <span class="tech-chip">Playwright</span>
-              <span class="tech-chip">Puppeteer</span>
-              <span class="tech-chip">Node.js</span>
-              <span class="tech-chip">MongoDB</span>
-            </div>
-          </div>
-          
-          <!-- STANDARD PROJECT 2: Attendance Bot Dashboard -->
-          <div class="project-card">
-            <div class="card-header">
-              <h3 class="project-title">Attendance Bot Dashboard</h3>
-              <span class="badge badge-internship">internship project</span>
-            </div>
-            <p class="project-desc">
-              A dashboard interface designed to visualize real-time employee attendance records and secure administrator session routes.
-            </p>
-            <ul class="project-features" style="margin-bottom: 20px;">
-              <li><strong>Dashboard UI:</strong> Built a dashboard interface to visualize attendance records, integrating frontend components with 5+ backend API endpoints for real-time data display.</li>
-              <li><strong>Authentication:</strong> Secured application access with JWT-based authentication and session management, protecting 100% of user routes.</li>
-            </ul>
-            <div class="tech-chips">
-              <span class="tech-chip">Next.js</span>
-              <span class="tech-chip">REST APIs</span>
-              <span class="tech-chip">MongoDB</span>
-              <span class="tech-chip">JWT</span>
-            </div>
-          </div>
-          
-        </div>
-      </div>
+      <div id="projects-root"></div>
     </section>
 
     <!-- ------------------------------------------------------------------------
@@ -2207,7 +2126,7 @@
           </a>
 
           <!-- Resume Link -->
-          <a href="resume.pdf" download class="contact-link-item">
+          <a href="/resume.pdf" download="Kaushik_Sharma_Resume.pdf" class="contact-link-item" aria-label="Download Kaushik Sharma's Resume">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
             <span>Resume</span>
           </a>
@@ -2223,9 +2142,7 @@
     </div>
   </footer>
 
-  <!-- ------------------------------------------------------------------------
-       SCRIPTS
-       ------------------------------------------------------------------------ -->
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // 1. Check prefers-reduced-motion
@@ -2304,7 +2221,10 @@
         
         sections.forEach(section => navObserver.observe(section));
       }
+
     });
   </script>
+  <!-- Mount Framer Motion Projects React Component -->
+  <script type="module" src="/src/Projects.jsx"></script>
 </body>
 </html>
